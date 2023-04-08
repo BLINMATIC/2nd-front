@@ -1,36 +1,29 @@
-##################################
-# Made by BLINMATIC (Onur Çetin) #
-# Version 1.0 INDEV 07-APR-2023  #
-##################################
-
 import pygame
-import pages
-import json
+from Commons import *
+from Pages import *
 
-cfg = json.loads(open("settings.json", "r").read())
 
 pygame.init()
 
-if cfg["screen"]["fullscreen"] == 1:
-    screen = pygame.display.set_mode((cfg["screen"]["width"], cfg["screen"]["height"]), pygame.FULLSCREEN)
-elif cfg["screen"]["fullscreen"] == 0:
-    screen = pygame.display.set_mode((cfg["screen"]["width"], cfg["screen"]["height"]))
-elif cfg["screen"]["fullscreen"] == -1:
-    screen = pygame.display.set_mode((cfg["screen"]["width"], cfg["screen"]["height"]), pygame.NOFRAME)
+screen = pygame.display.set_mode((1280, 720))
 
-clock = pygame.time.Clock()
-
-menu = pages.main_menu(screen)
-tab = pages.top_tab(screen)
+MainMenuPage = MainMenu(screen)
 
 resume = True
 while resume:
-    clock.tick(60)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            resume = False
-    screen.fill((255, 255, 255))
-    menu.mainloop()
-    tab.mainloop()
-    
-    pygame.display.update()
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			resume = False
+	screen.fill(BG)
+	
+	if MainMenuPage.resume:
+		MainMenuPage.loop()
+	elif MainMenuPage.About.resume:
+		MainMenuPage.About.loop()
+	
+	if not MainMenuPage.About.resume:
+		MainMenuPage.resume = True
+	elif not MainMenuPage.resume:
+		MainMenuPage.About.resume = True
+		MainMenuPage.About.loop()
+	pygame.display.update()

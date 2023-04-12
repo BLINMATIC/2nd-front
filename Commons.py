@@ -1,5 +1,8 @@
 import pygame
 import pygame.gfxdraw
+from Constants import Color
+
+pygame.mixer.init()
 
 
 class Coords:
@@ -26,20 +29,29 @@ class TextButton:
 		self.Text = Text
 
 		self.IsPressed = False
+		self.IsHoverPlayed = False
+
 		self.Callback = Callback
 
 	def Loop(self):
 		MX, MY = pygame.mouse.get_pos()
 
 		pygame.draw.rect(self.Display, self.RGB, (self.X, self.Y, self.Width, self.Height))
-		self.Display.blit(self.Font.render(" " + self.Text, True, (240, 240, 240)), (self.X, self.Y))
+		self.Display.blit(self.Font.render(" " + self.Text, True, Color.TextColor), (self.X, self.Y))
 		
 		if self.X < MX < self.X + self.Width and self.Y < MY < self.Y + self.Height:
+			if not self.IsHoverPlayed:
+				self.IsHoverPlayed = True
+				pygame.mixer.Sound("Res/ButtonHover").play()
+			
 			if pygame.mouse.get_pressed(3)[0] == 1 and not self.IsPressed:
 				self.IsPressed = True
+				pygame.mixer.Sound("Res/ButtonClick").play()
+				
 				self.Callback()
 			
 			if pygame.mouse.get_pressed(3)[0] == 0:
 				self.IsPressed = False
 		else:
+			self.IsHoverPlayed = False
 			pygame.gfxdraw.box(self.Display, pygame.Rect(self.X,self.Y,self.Width,self.Height), (120,120,120,120))

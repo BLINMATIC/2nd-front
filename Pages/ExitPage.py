@@ -1,6 +1,7 @@
 import pygame
 import Commons
 from Commons import Coords
+from Constants import Color
 
 
 ##################
@@ -28,7 +29,7 @@ class ExitPage:
 		self.Font = pygame.font.Font("Res/Ubuntu", Coords.GetRational(self.Height, 15))
 
 		# Exit message
-		self.Text = self.Font.render("It is safe to press ALT+F4 or ^C", True, (255, 255, 255))
+		self.Text = self.Font.render("ALT+F4", True, Color.TextColor)
 
 	def CheckForShowing(self):
 		if self.Show:

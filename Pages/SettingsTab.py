@@ -1,6 +1,8 @@
 import pygame
 import Commons
 from Commons import Coords
+import json
+from Constants import Color
 
 
 class SettingsTab:
@@ -22,8 +24,16 @@ class SettingsTab:
 		# Exit button
 		self.OkButton = Commons.TextButton(self.Width - self.Surface.get_width(), self.Height - Coords.GetRational(self.Height, 16),
 			self.Surface.get_width(), Coords.GetRational(self.Height, 16), 
-			self.Display, (200, 200, 200), "Tamam", lambda: self.HidePage())
+			self.Display, Color.ButtonColor1, "Tamam", lambda: self.HidePage())
 
+		self.FullScreenOnButton = Commons.TextButton(self.Width - self.Surface.get_width(), 0,
+			self.Surface.get_width(), Coords.GetRational(self.Height, 32), 
+			self.Display, Color.ButtonColor1, "Tam Ekran", lambda: self.FullScreenModifier())
+		
+		self.WindowedScreenButton = Commons.TextButton(self.Width - self.Surface.get_width(), Coords.GetRational(self.Height, 32),
+			self.Surface.get_width(), Coords.GetRational(self.Height, 32), 
+			self.Display, Color.ButtonColor2, "Normal Ekran", lambda: self.WindowedModifier())
+		
 	def CheckForShowing(self):
 		if self.Show:
 			self.X = self.Width - self.Surface.get_width()
@@ -36,11 +46,25 @@ class SettingsTab:
 	def HidePage(self):
 		self.Show = False
 
+	def FullScreenModifier(self):
+		Tmp = json.loads(open("Settings.json", "r").read())
+		Tmp["Fullscreen"] = True
+		open("Settings.json", "w").write(json.dumps(Tmp))
+	
+	def WindowedModifier(self):
+		Tmp = json.loads(open("Settings.json", "r").read())
+		Tmp["Fullscreen"] = False
+		open("Settings.json", "w").write(json.dumps(Tmp))
+
 	def Loop(self):
 		if self.Show:
 			self.Display.blit(self.Surface, (self.X, self.Y))
 			self.CheckForShowing()
-			self.Surface.fill((120, 120, 120))
+			self.Surface.fill(Color.FGColor)
 			
 			# Draw the ok button
 			self.OkButton.Loop()
+
+			# Draw the settings buttons
+			self.FullScreenOnButton.Loop()
+			self.WindowedScreenButton.Loop()

@@ -1,6 +1,7 @@
 import pygame
 import Commons
 from Commons import Coords
+from Constants import Color
 
 
 ##################
@@ -42,7 +43,7 @@ class AboutTab:
 		# Exit button
 		self.OkButton = Commons.TextButton(0, self.Height - Coords.GetRational(self.Height, 16),
 			self.Surface.get_width(), Coords.GetRational(self.Height, 16), 
-			self.Surface, (200, 200, 200), "Tamam", lambda: self.HidePage())
+			self.Surface, Color.ButtonColor1, "Tamam", lambda: self.HidePage())
 
 	def CheckForShowing(self):
 		if self.Show:
@@ -60,11 +61,11 @@ class AboutTab:
 		if self.Show:
 			self.Display.blit(self.Surface, (self.X, self.Y))
 			self.CheckForShowing()
-			self.Surface.fill((120, 120, 120))
+			self.Surface.fill(Color.FGColor)
 
 			# Draw every single line of the document
 			for i in range(0, len(self.Lines)):
-				self.Surface.blit(self.Font.render(self.Lines[i], True, (255, 255, 255)), (0, i * Coords.GetRational(self.Height, 64)))
+				self.Surface.blit(self.Font.render(self.Lines[i], True, Color.TextColor), (0, i * Coords.GetRational(self.Height, 64)))
 			
 			# Draw the ok button
 			self.OkButton.Loop()

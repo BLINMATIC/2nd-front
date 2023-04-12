@@ -4,7 +4,7 @@ from Commons import Coords
 from Pages.AboutTab import AboutTab
 from Pages.ExitPage import ExitPage
 from Pages.SettingsTab import SettingsTab
-
+from Constants import Color
 
 ##################
 # EDITING CLOSED #
@@ -32,22 +32,22 @@ class MainMenu:
 		self.PlayButton = Commons.TextButton(
 			Coords.GetCenterRational(self.Width, 3), Coords.GetCenterRational(self.Height, 10),
 			Coords.GetRational(self.Width, 3), Coords.GetRational(self.Height, 10),
-			self.Surface, (200, 200, 200), "Oyna", lambda: print(""))
+			self.Surface, Color.ButtonColor1, "Oyna", lambda: print(""))
 		
 		self.SettingsButton = Commons.TextButton(
 			Coords.GetCenterRational(self.Width, 3), Coords.GetCenterRational(self.Height, 10) + Coords.GetRational(self.Height, 10),
 			Coords.GetRational(self.Width, 3), Coords.GetRational(self.Height, 10),
-			self.Surface, (150, 150, 150), "Ayarlar", lambda: self.SettingsButtonCommand())
+			self.Surface, Color.ButtonColor2, "Ayarlar", lambda: self.SettingsButtonCommand())
 		
 		self.AboutButton = Commons.TextButton(
 			Coords.GetCenterRational(self.Width, 3), Coords.GetCenterRational(self.Height, 10) + Coords.GetRational(self.Height, 5),
 			Coords.GetRational(self.Width, 3), Coords.GetRational(self.Height, 10),
-			self.Surface, (200, 200, 200), "Hakkında", lambda: self.AboutButtonCommand())
+			self.Surface, Color.ButtonColor1, "Hakkında", lambda: self.AboutButtonCommand())
 
 		self.ExitButton = Commons.TextButton(
 			Coords.GetCenterRational(self.Width, 3), Coords.GetCenterRational(self.Height, 10) + Coords.GetRational(self.Height, 10) * 3,
 			Coords.GetRational(self.Width, 3), Coords.GetRational(self.Height, 10),
-			self.Surface, (150, 150, 150), "Çık", lambda: self.ExitButtonCommand())
+			self.Surface, Color.ButtonColor2, "Çık", lambda: self.ExitButtonCommand())
 		
 		self.ExitPage = ExitPage(self.Display)
 		self.AboutTab = AboutTab(self.Surface)
@@ -81,7 +81,7 @@ class MainMenu:
 		if self.Show:
 			self.Display.blit(self.Surface, (self.X, self.Y))
 			self.CheckForShowing()
-			self.Surface.fill((255, 255, 255))
+			self.Surface.fill(Color.BGColor)
 
 			self.PlayButton.Loop()
 			self.SettingsButton.Loop()

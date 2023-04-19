@@ -1,6 +1,7 @@
 import pygame
 import constant
 import prefab
+import game
 from .about_tab import AboutTab
 from .settings_tab import SettingsTab
 
@@ -20,9 +21,10 @@ class MenuTab:
         # Define pages
         self.about_tab = AboutTab(self.display)
         self.settings_tab = SettingsTab(self.display)
+        self.game = game.background.Game(self.display)
 
         # Buttons
-        self.play_button = prefab.Button(self.surface, [0, 10, 150, 20], "Oyna", lambda: print())
+        self.play_button = prefab.Button(self.surface, [0, 10, 150, 20], "Oyna", lambda: self.game.show_game())
         self.settings_button = prefab.Button(self.surface, [150, 10, 150, 20], "Ayarlar", lambda: self.settings_tab.show_tab())
         self.about_button = prefab.Button(self.surface, [300, 10, 150, 20], "Hakkında", lambda: self.about_tab.show_tab())
         self.exit_button = prefab.Button(self.surface, [450, 10, 150, 20], "Çıkış", lambda: exit(0))
@@ -30,6 +32,7 @@ class MenuTab:
     def loop(self):
         self.about_tab.loop()
         self.settings_tab.loop()
+        self.game.loop()
 
         if self.show:
             self.display.blit(self.surface, (0, self.y))

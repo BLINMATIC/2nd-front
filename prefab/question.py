@@ -35,4 +35,4 @@ class Question:
         self.ans4.loop()
 
         for i in range(0, len(self.title)):
-            self.display.blit(pygame.font.Font("resource/ubuntu_mono.ttf", 25).render(self.title[i], True, (0, 0, 0)), (4, 25 + i * 25))
+            self.display.blit(pygame.font.Font("resource/ubuntu_mono.ttf", 25).render(self.title[i], True, (0, 0, 0)), (4, 75 + i * 25))

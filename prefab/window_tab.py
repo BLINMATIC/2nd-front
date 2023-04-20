@@ -1,6 +1,7 @@
 import pygame
 from prefab.button import Button
 
+
 class WindowTab:
     def __init__(self, display: pygame.Surface, page_show: bool, page_title: str):
         self.display = display
@@ -10,7 +11,7 @@ class WindowTab:
         self.height = display.get_height()
         self.text = pygame.font.Font("resource/ubuntu_mono.ttf", 25).render(self.title, True, (0, 0, 0))
 
-        self.close_button = Button(self.display, self.width - 128, 0, 25, "Close", lambda: self.close_button_action())
+        self.close_button = Button(self.display, self.width - 128, 0, 25, "Close", lambda: exit())
 
     def close_button_action(self):
         self.show = False

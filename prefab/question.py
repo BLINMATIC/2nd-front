@@ -1,6 +1,8 @@
 import pygame
 import prefab
 
+pygame.mixer.init()
+
 
 class Question:
     def __init__(self, display: pygame.Surface, title: str, ans1: str, ans2: str, ans3: str, ans4: str, correct_ans: int):
@@ -20,13 +22,25 @@ class Question:
 
         self.correct_answer = correct_ans
 
+        self.correct_answer_audio = pygame.mixer.Sound("resource/correct.wav")
+        self.wrong_answer_audio = pygame.mixer.Sound("resource/wrong.wav")
+        self.answer_audio_played = False
+
     def answer(self, id):
         if id == self.correct_answer:
             self.correct = True
             self.next = True
+
+            if not self.answer_audio_played:
+                self.correct_answer_audio.play()
+                self.answer_audio_played = True
         else:
             self.correct = False
             self.next = True
+
+            if not self.answer_audio_played:
+                self.wrong_answer_audio.play()
+                self.answer_audio_played = True
 
     def loop(self):
         self.ans1.loop()
@@ -35,4 +49,4 @@ class Question:
         self.ans4.loop()
 
         for i in range(0, len(self.title)):
-            self.display.blit(pygame.font.Font("resource/ubuntu_mono.ttf", 50).render(self.title[i], True, (0, 0, 0)), (4, 75 + i * 50))
+            self.display.blit(pygame.font.Font("resource/ubuntu_mono.ttf", 50).render(self.title[i], True, (0, 0, 0)), (4, 75 + (self.width // 35) + i * 50))

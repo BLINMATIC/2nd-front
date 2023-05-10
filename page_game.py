@@ -1,6 +1,6 @@
 import random
-
 from constant import *
+import pygame
 
 
 class Question:
@@ -51,7 +51,7 @@ class Question:
 
         # Draw the buttons and the answers
         for i in range(5, 0, -1):
-            SCREEN.blit(pygame.transform.scale(IMAGE_BUTTON, (SCREEN_WIDTH, 32)), (0, SCREEN_HEIGHT - 128 - i * 32))
+            pygame.draw.rect(SCREEN, (240, 240, 240), (SCREEN_WIDTH, 32, 0, SCREEN_HEIGHT - 128 - i * 32))
             SCREEN.blit(self.answers[-i], (0, SCREEN_HEIGHT - 128 - i * 32))
 
         # Activate buttons
@@ -98,10 +98,10 @@ class Question:
             self.phase_answering()
 
         if self.phase == "correctanswer":
-            self.loading_bar("Doğru Cevap", "end")
+            self.loading_bar("Doğru Cevap", "end+")
 
         if self.phase == "incorrectanswer":
-            self.loading_bar("Yanlış Cevap", "end")
+            self.loading_bar("Yanlış Cevap", "end-")
 
 
 class Game:
@@ -111,7 +111,7 @@ class Game:
             Question("is A \n = A?", "A", "B", "C", "D", "E", 1),
             Question("is B \n = B?", "A", "B", "C", "D", "E", 2)
         ]
-
+        self.score = 0
         self.selected_question = random.randint(0, len(self.questions) - 1)
 
     def loop(self):
@@ -119,9 +119,15 @@ class Game:
         try:
             self.questions[self.selected_question].loop()
 
-            if self.questions[self.selected_question].phase == "end":
+            if self.questions[self.selected_question].phase == "end+" or self.questions[self.selected_question].phase == "end-":
+                if self.questions[self.selected_question].phase == "end+":
+                    self.score += 1
+                if self.questions[self.selected_question].phase == "end-":
+                    self.score -= 1
                 self.selected_question = random.randint(0, len(self.questions) - 1)
                 self.questions[self.selected_question].phase = "getready"
+
+
 
         except:
             pass

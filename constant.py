@@ -2,7 +2,6 @@ import pygame
 import pygame.gfxdraw
 
 pygame.init()
-pygame.mixer.init()
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
@@ -12,12 +11,12 @@ SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 CLOCK = pygame.time.Clock()
 
 FONT = pygame.font.Font("resource/bahnscrift.ttf", 32)
-
-IMAGE_BUTTON = pygame.image.load("resource/button_single.png")
-
 TEXT_GETREADY = FONT.render("Hazır Ol!", True, (0, 0, 0))
 
 COLOR_BLACK = (0, 0, 0)
+
+IMAGE_TR = pygame.image.load("resource/flag_tr.png")
+IMAGE_GR = pygame.image.load("resource/flag_gr.png")
 
 
 class Button:

@@ -3,11 +3,12 @@ import pygame.gfxdraw
 
 pygame.init()
 
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 720
+SCREEN = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
+SCREEN_WIDTH = SCREEN.get_width()
+SCREEN_HEIGHT = SCREEN.get_height()
 SCREEN_REFRESH_RATE = 240
 
-SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 CLOCK = pygame.time.Clock()
 
 FONT = pygame.font.Font("resource/bahnscrift.ttf", 32)
@@ -17,6 +18,9 @@ COLOR_BLACK = (0, 0, 0)
 
 IMAGE_TR = pygame.image.load("resource/flag_tr.png")
 IMAGE_GR = pygame.image.load("resource/flag_gr.png")
+IMAGE_GREEK_SOLDIER = pygame.image.load("resource/soldier_greece.png")
+IMAGE_TURKISH_SOLDIER = pygame.image.load("resource/soldier_turkey.png")
+IMAGE_LOWHP = pygame.image.load("resource/turkey_lowhp.png")
 
 
 class Button:

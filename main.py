@@ -1,9 +1,13 @@
 import pygame
 from constant import *
-from page_game import Game
+from soldiers_tab import *
 
 resume = True
-g = Game()
+st = SoldiersTab()
+game = Game()
+ending = Ending(0)
+
+
 while resume:
     CLOCK.tick(SCREEN_REFRESH_RATE)
 
@@ -12,13 +16,13 @@ while resume:
             resume = False
 
     SCREEN.fill((255, 255, 255))
-    g.loop()
-    SCREEN.blit(IMAGE_TR, (0, SCREEN_HEIGHT - 32))
-    SCREEN.blit(IMAGE_GR, (SCREEN_WIDTH - 64, SCREEN_HEIGHT - 32))
-    x = (SCREEN_WIDTH - 128) // 32
-    for i in range(g.score):
-        pygame.draw.ellipse(SCREEN, (255, 0, 0), (64 + i * x, SCREEN_HEIGHT - x, x, x))
+    ending = Ending(game.score)
 
-    for i in range(32 - g.score):
-        pygame.draw.ellipse(SCREEN, (0, 0, 255), (SCREEN_WIDTH - 96 - i * x, SCREEN_HEIGHT - x, x, x))
+    if game.score < 0 or game.score >= 32:
+        ending.loop()
+    else:
+        game.loop()
+        st.loop(game.score)
+
+
     pygame.display.update()

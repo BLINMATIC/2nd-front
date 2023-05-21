@@ -115,7 +115,7 @@ class Game:
 
         self.questions = []
         for i in os.listdir("question"):
-            tmp_question = open(os.path.join("question", i), "r").read().split("\n//\n")
+            tmp_question = open(os.path.join("question", i), "r", encoding="UTF-8").read().split("\n//\n")
             self.questions.append(Question(tmp_question[0], tmp_question[1], tmp_question[2], tmp_question[3], tmp_question[4], int(tmp_question[5])))
         self.score = 0
         self.selected_question = random.randint(0, len(self.questions) - 1)
